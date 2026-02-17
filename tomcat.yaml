@@ -1,0 +1,13 @@
+- name: installation of tomcat
+  hosts: all
+  become: yes
+  tasks:
+    - name: fail if not run on ubuntu
+      ansible.builtin.fail:
+        msg: this play book only works in ubuntu
+      when: ansible_facts['distribution'] != "Ubuntu"
+    - name: install java
+      ansible.builtin.apt:
+       name: {{ "java_package_name"}}
+       update_cache: yes
+       state: present
