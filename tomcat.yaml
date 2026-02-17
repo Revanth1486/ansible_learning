@@ -1,15 +1,13 @@
-
-- name: Installation of Tomcat
+---
+- name: install tomcat 10
   hosts: all
   become: yes
-
   tasks:
-    - name: Fail if not run on Ubuntu
+    - name: fail if it is not ubuntu
       ansible.builtin.fail:
-        msg: "This playbook only works on Ubuntu"
-      when: ansible_facts['distribution'] != "Ubuntu"
-
-    - name: Install Java
+        msg: This playbook is for Ubuntu only
+      when:  ansible_facts['distribution'] != "Ubuntu"
+    - name: install java
       ansible.builtin.apt:
         name: "{{ java_package_name }}"
         update_cache: yes
